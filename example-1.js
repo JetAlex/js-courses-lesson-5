@@ -1,0 +1,51 @@
+/*
+#### Задача 1
+
+Напишите свою имплементацию функции `bind`
+
+Принимает такие параметры:
+
+- Первый параметр — функция которую мы хотим привязать
+- Второй параметр — ссылка на this
+- Третий параметр до ...n — параметры для функции которую мы хотим привязать
+
+Пример вызова:
+
+```javascript
+const obj = {
+    getName: function(message) {
+        return `${message}: ${this.name}`;
+    }
+};
+
+const getName = obj.getName;
+
+const f = bind(getName, {name: 'Pitter'}, 'My name');
+console.log(f()); // My name: Pitter
+```
+*/
+
+const bind = function (cb, context, ...n) {
+  for(const key in context){
+    if(context.hasOwnProperty(key)) this[key] = context[key];
+  }
+
+  return () => cb(...n);
+};
+
+const obj = {
+  getName: function(message) {
+    return `${message}: ${this.name}`;
+  }
+};
+
+const getName = obj.getName;
+
+const f = bind(getName, {name: 'Pitter'}, 'My name');
+console.log(f()); // My name: Pitter
+
+
+
+
+
+
